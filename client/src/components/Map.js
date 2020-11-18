@@ -17,7 +17,7 @@ const Map = props => {
             <MapContainer 
                 center = {center}
                 zoom = {zoom} 
-                id = "berkeleyMap"
+                id = "map"
             >
                 <TileLayer 
                     attribution = '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' 

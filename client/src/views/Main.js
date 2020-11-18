@@ -13,16 +13,6 @@ const Main = () => {
 
     const [datalist, setDatalist] = useState([]);
 
-
-    // useEffect(()=> {
-    //     axios.get('https://www.refugerestrooms.org/api/v1/restrooms/by_location?page=1&per_page=50&offset=0&lat=37.871576&lng=-122.273029')
-    //     .then(response => {
-    //         setDatalist(response.data)
-    //     })
-    //     .catch(err => console.log("bad"))
-    // }, [])
-
-
     const changeHandler = e => {
         setSearch({
             ...search,
@@ -46,6 +36,11 @@ const Main = () => {
 
     return(
         <>
+            <div className="topMenu">
+                <div className="menuButton">
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-caret-down-fill" fill="currentColor"></svg>
+                </div>
+            </div>
             <SearchBar
                 changeHandler = {changeHandler}
                 submitHandler = {submitHandler}
