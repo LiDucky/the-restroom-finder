@@ -13,17 +13,15 @@ const Main = props => {
         longitude: "-122.273029"
     });
     // const {latitude, longitude} = search;
-    const [newSearch, setNewSearch] = useState({})
 
     const [datalist, setDatalist] = useState([]);
 
 
     useEffect(()=> {
-        axios.get('https://www.refugerestrooms.org/api/v1/restrooms/by_location?page=1&per_page=50&offset=0&lat=37.871576&lng=-122.273029')
+        axios.get('https://www.refugerestrooms.org/api/v1/restrooms/by_location?page=1&per_page=50&offset=0&lat=37.871576}&lng=-122.27302')
         .then(response => {
-            const datalist = response.data
-            console.log(datalist)
-            setDatalist(datalist)
+            console.log(response.data)
+            setDatalist(response.data)
         })
         .catch(err => console.log("bad"))
     }, [])
@@ -42,9 +40,9 @@ const Main = props => {
             .then(response => {
                 console.log('submitHandler clicked')
                 console.log(response.data);
-                const newResults = datalist.filter(item => {
-                    return item.id != newSearch.id})
-                setNewSearch(newResults)
+                const newlist = datalist.filter(item => {
+                    return item.id != search.id})
+                setDatalist(newlist)
                 navigate('/')
             })
             .catch(err => console.log(err))
@@ -62,10 +60,12 @@ const Main = props => {
                 changeHandler = {changeHandler}
                 submitHandler = {submitHandler}
                 search = {search}
-                newSearch = {newSearch}
 
             />
-            <Map datalist={datalist}/>
+            <Map
+                datalist={datalist}
+                search={search}
+            />
         </>
         
     )

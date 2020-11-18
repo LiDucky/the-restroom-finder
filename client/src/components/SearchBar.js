@@ -9,9 +9,9 @@ const SearchBar = props => {
     return (
         <form onSubmit={submitHandler}>
             <label htmlFor="latitude">Latitude: </label>
-            {/* <input type="text" name="latitude" onChange={changeHandler} value={latitude}/> */}
+            <input type="text" name="latitude" onChange={changeHandler} value={search.latitude}/>
             <label htmlFor="longitude">Longitude: </label>
-            {/* <input type="text" name="longitude" onChange={changeHandler} value={longitude}/> */}
+            <input type="text" name="longitude" onChange={changeHandler} value={search.longitude}/>
             <input type="submit" value="Search"/>
         </form>
     )
