@@ -10,10 +10,12 @@ const Main = () => {
         latitude: "37.871576",
         longitude: "-122.273029"
     });
+    
 
     // const {latitude, longitude} = search;
 
     const [datalist, setDatalist] = useState([]);
+    const [center, setCenter] = useState([37.871576, -122.273029])
 
 
     // useEffect(()=> {
@@ -36,7 +38,11 @@ const Main = () => {
         e.preventDefault();
         axios.get(`https://www.refugerestrooms.org/api/v1/restrooms/by_location?page=1&per_page=50&offset=0&lat=${search.latitude}&lng=${search.longitude}`)
             .then(response => {
+                console.log(response.data)
+                console.log(`latitude: ${search.latitude}, longitude: ${search.longitude}`)
                 setDatalist(response.data);
+                setCenter([search.latitude, search.longitude])
+                navigate('/')
             })
             .catch(err => console.log(err))
 
@@ -56,6 +62,7 @@ const Main = () => {
             <Map
                 datalist={datalist}
                 search={search}
+                center={center}
             />
         </>
         

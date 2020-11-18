@@ -9,8 +9,8 @@ import Main from '../views/Main'
 
 
 const Map = props => {
-    const {datalist, newSearch} = props;
-    const center = [37.871576, -122.273029];
+    const {datalist, search, center} = props;
+    // const center = [search.latitude, search.longitude];
     const zoom = 14;
 
     return(
@@ -26,24 +26,7 @@ const Map = props => {
                 <Marker 
                     position = {[37.871576, -122.273029]}
                 />
-                {
-                    newSearch ? newSearch.map((item, i)=>(
-                        <Marker 
-                            key = {i} 
-                            position = {[item.latitude, item.longitude]} 
-                        >
-                            <MarkerPopup 
-                                name = {item.name} 
-                                changing_table = {item.changing_table} 
-                                accessible = {item.accessible} 
-                                unisex = {item.unisex} 
-                                street = {item.street}
-                                city = {item.city}
-                                state = {item.state}
-                            />
-                        </Marker>
-                    ))
-                    : datalist.map((item, i)=>(
+                { datalist.map((item, i)=>(
                         <>
                             <Marker key = {i} 
                                 position = {[item.latitude, item.longitude]} 
