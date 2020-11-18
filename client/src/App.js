@@ -1,7 +1,9 @@
 import React from 'react';
 import './App.css';
 import {Link, Router} from '@reach/router';
+import Main from './views/Main';
 import Map from './components/Map';
+import SearchBar from './components/SearchBar';
 
 function App() {
 
@@ -15,8 +17,8 @@ function App() {
                     </div>
                     <input type="text" name="search" placeholder="Search..."/>
                 </div>
-                <Map/>
             </div>
+            <Main/>
         </div>
     );
 }
