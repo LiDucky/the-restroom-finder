@@ -3,8 +3,7 @@ import React from 'react';
 
 const SearchBar = props => {
     const {search, changeHandler, submitHandler} = props;
-    console.log(search);
-    const {latitude, longitude} = search;
+    const {latitude, longitude, radius} = search;
 
     return (
         <>
@@ -15,9 +14,9 @@ const SearchBar = props => {
                 <label htmlFor="longitude">Longitude: </label>
                 <input type="text" name="longitude" onChange={changeHandler} value={longitude}/>
                 <br/>
-                <input type="submit" value="Search"/>
-            </form>
-            <form>
+                <label htmlFor="radius">Radius: </label>
+                <input type="integer" name="radius" onChange={changeHandler} value={radius}/>
+                <br/>
                 <input type="checkbox"/>
                 <label htmlFor="unisex">Gender Neutral</label>
                 <br/>
@@ -27,6 +26,7 @@ const SearchBar = props => {
                 <input type="checkbox"/>
                 <label htmlFor="accessible">ADA Accessible</label>
                 <br/>
+                <input type="submit" value="Search"/>
             </form>
         </>
     )

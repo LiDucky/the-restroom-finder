@@ -10,7 +10,6 @@ const Main = () => {
         latitude: "37.871576",
         longitude: "-122.273029"
     });
-    // const {latitude, longitude} = search;
 
     const [datalist, setDatalist] = useState([]);
     const [center, setCenter] = useState([37.871576, -122.273029])
@@ -36,10 +35,10 @@ const Main = () => {
 
         setSearch({
             latitude: "",
-            longitude: ""
+            longitude: "",
+            radius: "",
         });
     };
- 
     
 
     return(

@@ -1,9 +1,8 @@
 import React from 'react'
 import {Popup} from 'react-leaflet';
-import {Link} from '@reach/router'
 
 const MarkerPopup = props => {
-    const {route, name, changing_table, accessible, unisex, street, city, state, loadDirections} = props;
+    const {name, changing_table, accessible, unisex, street, city, state} = props;
 
     return (
         <Popup>
