@@ -1,9 +1,10 @@
 import { useMap } from "react-leaflet";
 import L from "leaflet";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const Route = props => {
-    const  map  = useMap();
+    const map = useMap();
+    const [route, setRoute] = useState(false);
     console.log(map);
     const {personLocation, restroomLocation} = props;
 

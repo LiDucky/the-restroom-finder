@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {navigate} from '@reach/router';
 import axios from 'axios';
 import Map from '../components/Map';
 import SearchBar from '../components/SearchBar';
@@ -8,7 +7,14 @@ const Main = () => {
     
     const [search, setSearch] = useState({
         latitude: "37.871576",
-        longitude: "-122.273029"
+        longitude: "-122.273029",
+        radius: "2"
+    });
+
+    const [newSearch, setNewSearch] = useState({
+        latitude: "",
+        longitude: "",
+        radius: ""
     });
 
     const [datalist, setDatalist] = useState([]);
@@ -19,7 +25,7 @@ const Main = () => {
             [e.target.name]: e.target.value
         })
     };
-    
+
     const submitHandler = e => {
         e.preventDefault();
         axios.get(`https://www.refugerestrooms.org/api/v1/restrooms/by_location?page=1&per_page=50&offset=0&lat=${search.latitude}&lng=${search.longitude}`)
@@ -27,11 +33,13 @@ const Main = () => {
                 setDatalist(response.data);
             })
             .catch(err => console.log(err))
-
+        
+        setNewSearch(search);
+        
         setSearch({
             latitude: "",
-            longitude: ""
-            //add radius
+            longitude: "",
+            radius: ""
         });
     };
 
@@ -49,7 +57,7 @@ const Main = () => {
             />
             <Map
                 datalist={datalist}
-                search={search}
+                search={newSearch} // comparison search
             />
         </>
         

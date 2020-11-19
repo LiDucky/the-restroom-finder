@@ -8,6 +8,8 @@ import Route from './Route';
 
 const Map = props => {
     const {datalist, search} = props;
+    console.log(search);
+    console.log(datalist);
     const center = [37.871576, -122.273029];
     const zoom = 14;
 
@@ -25,7 +27,7 @@ const Map = props => {
                 <Marker position = {[37.871576, -122.273029]}/>
                 {
                     datalist.map((item, i)=>{
-                        if(item.distance <= 2) {// substitude 2 for search.radius
+                        if(item.distance <= search.radius) {
                             return(
                                 <>
                                     <Marker key = {i} 
