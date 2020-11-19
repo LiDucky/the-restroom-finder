@@ -1,6 +1,5 @@
 import React from 'react';
-import {TileLayer, MapContainer, Marker } from 'react-leaflet';
-// import data from './safelist.json'
+import {TileLayer, MapContainer, Marker, CircleMarker } from 'react-leaflet';
 import axios from 'axios'
 import {useEffect, useState} from 'react'
 import MarkerPopup from './MarkerPopup'
@@ -8,10 +7,15 @@ import Main from '../views/Main'
 
 
 
+
 const Map = props => {
     const {datalist, search, center} = props;
     // const center = [search.latitude, search.longitude];
     const zoom = 14;
+
+
+
+
 
     return(
             <MapContainer 
@@ -44,6 +48,7 @@ const Map = props => {
                         </>
                     ))
                 }
+
             </MapContainer>
     )
 }

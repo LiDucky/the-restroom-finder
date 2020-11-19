@@ -5,13 +5,11 @@ import Map from '../components/Map';
 import SearchBar from '../components/SearchBar';
 
 const Main = () => {
-    
+    const [markers, setMarkers] = useState([]);
     const [search, setSearch] = useState({
         latitude: "37.871576",
         longitude: "-122.273029"
     });
-    
-
     // const {latitude, longitude} = search;
 
     const [datalist, setDatalist] = useState([]);
@@ -41,6 +39,8 @@ const Main = () => {
             longitude: ""
         });
     };
+ 
+    
 
     return(
         <>
@@ -58,6 +58,7 @@ const Main = () => {
                 datalist={datalist}
                 search={search}
                 center={center}
+
             />
         </>
         
