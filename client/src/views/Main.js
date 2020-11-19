@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import L from "leaflet";
 import axios from 'axios';
 import Map from '../components/Map';
 import SearchBar from '../components/SearchBar';
@@ -10,14 +11,24 @@ const Main = () => {
         longitude: "-122.273029",
         radius: "2"
     });
-
     const [newSearch, setNewSearch] = useState({
         latitude: "",
         longitude: "",
         radius: ""
     });
-
     const [datalist, setDatalist] = useState([]);
+    const [restroomLocation, setRestroomLocation] = useState([]);
+    const [personLocation, setPersonLocation] = useState(["37.871576", "-122.273029"]);
+
+    const allRoute = L.Routing.control({
+        waypoints: [
+            personLocation,
+            restroomLocation
+        ],
+        router: new L.Routing.osrmv1({
+            profile: 'foot' //doesn't seem to be changing time?
+        })
+    })
 
     const changeHandler = e => {
         setSearch({
@@ -25,7 +36,6 @@ const Main = () => {
             [e.target.name]: e.target.value
         })
     };
-
     const submitHandler = e => {
         e.preventDefault();
         axios.get(`https://www.refugerestrooms.org/api/v1/restrooms/by_location?page=1&per_page=50&offset=0&lat=${search.latitude}&lng=${search.longitude}`)
@@ -33,7 +43,7 @@ const Main = () => {
                 setDatalist(response.data);
             })
             .catch(err => console.log(err))
-        
+        setPersonLocation([search.latitude, search.longitude])
         setNewSearch(search);
         
         setSearch({
@@ -57,7 +67,9 @@ const Main = () => {
             />
             <Map
                 datalist={datalist}
-                search={newSearch} // comparison search
+                search={newSearch}
+                setRestroomLocation={setRestroomLocation}
+                allRoute={allRoute}
             />
         </>
         

@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 const SearchBar = props => {
     const {search, changeHandler, submitHandler} = props;
     const {latitude, longitude, radius} = search;
