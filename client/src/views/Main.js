@@ -11,8 +11,6 @@ const Main = () => {
         longitude: "-122.273029"
     });
 
-    // const {latitude, longitude} = search;
-
     const [datalist, setDatalist] = useState([]);
 
     const changeHandler = e => {
@@ -33,6 +31,7 @@ const Main = () => {
         setSearch({
             latitude: "",
             longitude: ""
+            //add radius
         });
     };
 
