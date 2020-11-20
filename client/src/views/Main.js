@@ -115,7 +115,6 @@ const Main = () => {
                 search={newSearch}
                 setRestroomLocation={setRestroomLocation}
                 allRoute={allRoute}
-                // filteredList={filteredList}
                 setPersonLocation={setPersonLocation}
 
             />

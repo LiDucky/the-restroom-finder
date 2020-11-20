@@ -6,7 +6,7 @@ import Route from './Route';
 
 
 const Map = props => {
-    const {datalist, setPersonLocation, setRestroomLocation, allRoute} = props;
+    const {search, datalist, setPersonLocation, setRestroomLocation, allRoute} = props;
     const center = [37.871576, -122.273029];
     const [routeMade, setRouteMade] = useState(false);
     const zoom = 14;
@@ -31,6 +31,25 @@ const Map = props => {
             </Marker>
         )
     }
+    const filteredList = [];
+    for (let i=0; i<datalist.length-1; i++){
+        if (datalist[i].distance <+ search.radius){
+            if (search.unisex == true && datalist[i].unisex == true){
+                filteredList.push(datalist[i])
+            }
+            if (search.changing_table == true && datalist[i].changing_table == true){
+                filteredList.push(datalist[i])
+            }
+            if (search.accessible == true && datalist[i].accessible == true){
+                filteredList.push(datalist[i])
+            }
+        }
+    }
+    console.log(`this is the filteredList:`, filteredList)
+
+
+
+
     return(
             <MapContainer
                 center = {center}
@@ -45,9 +64,9 @@ const Map = props => {
 
                 {
                     datalist.map((item, i)=>{
-                        if(item.distance <= search.radius) {
-                            if (search.unisex==item.unisex || search.changing_table==item.changing_table || search.accessible==item.accessible){
-                            
+                        // if(item.distance <= search.radius) {
+                        //     if (search.unisex==item.unisex || search.changing_table==item.changing_table || search.accessible==item.accessible){
+
                                 return(
                                     <>
                                         <Marker key = {i} 
@@ -72,8 +91,8 @@ const Map = props => {
                                         </Marker>
                                     </>
                                 )
-                            }
-                        }
+                        //     }
+                        // }
                     })
                 }
                 <LocationMarker/>
