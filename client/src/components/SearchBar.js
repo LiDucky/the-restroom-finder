@@ -1,9 +1,8 @@
 import React from 'react';
 
 const SearchBar = props => {
-    const {search, changeHandler, submitHandler} = props;
+    const {search, changeHandler, personLocation, submitHandler} = props;
     const {latitude, longitude, radius, unisex, changing_table, accessible} = search;
-
     return (
         <>
             <button id="hider" className="btn btn-secondary" onClick={() => {
@@ -16,9 +15,9 @@ const SearchBar = props => {
             }}>Show Search</button>
             <form id="searchBar" onSubmit={submitHandler}>
                 <label htmlFor="latitude">Latitude: </label>
-                <input className="form-control" type="text" name="latitude" onChange={changeHandler} value={latitude}/>
+                <input className="form-control" type="text" name="latitude" onChange={changeHandler} value={personLocation.lat}/>
                 <label htmlFor="longitude">Longitude: </label>
-                <input className="form-control" type="text" name="longitude" onChange={changeHandler} value={longitude}/>
+                <input className="form-control" type="text" name="longitude" onChange={changeHandler} value={personLocation.lng}/>
                 <label htmlFor="radius">Radius: </label>
                 <input className="form-control" type="text" name="radius" onChange={changeHandler} value={radius}/>
                 <div className="form-check form-check-inline">
