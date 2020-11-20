@@ -38,6 +38,10 @@ const Main = () => {
     })
 
     const changeHandler = e => {
+        if(routeMade) {
+            setRouteMade(false)
+            allRoute.remove();
+        }
         if (e.target.name === "latitude" || e.target.name === "longitude"){
             setPersonLocation({
                 ...personLocation,
@@ -56,7 +60,6 @@ const Main = () => {
                 
             })
         }
-        
     };
     const submitHandler = e => {
         e.preventDefault();
@@ -66,10 +69,7 @@ const Main = () => {
         }
         axios.get(`https://www.refugerestrooms.org/api/v1/restrooms/by_location?page=1&per_page=50&offset=0&lat=${personLocation.lat}&lng=${personLocation.lng}`)
             .then(response => {
-                console.log(response.data)
-                console.log(`latitude: ${personLocation.lat}, longitude: ${personLocation.lng}, radius: ${search.radius}, gender: ${search.unisex}, changing table: ${search.changing_table}, accessible: ${search.accessible}`)
                 setDatalist(response.data);
-                console.log(`datalist:`, datalist)
                 // console.log(`datalist9:`, datalist[9].unisex)
                 // console.log(response.data)
                 // const newlist=[];

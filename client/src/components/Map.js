@@ -10,7 +10,6 @@ const Map = props => {
     const center = [37.871576, -122.273029];
     const [needToGetLocation, setNeedToGetLocation] = useState(true);
     const zoom = 14;
-    console.log(`search:`, search)
 
     function LocationMarker() {
         const [position, setPosition] = useState(null);
@@ -49,7 +48,16 @@ const Map = props => {
                 {
                     datalist.map((item, i)=>{
                         if(item.distance <= search.radius) {
-                            if ((search.unisex==true && item.unisex==true) || (search.changing_table==true && item.changing_table==true) || (search.accessible==true && item.accessible==true)){
+                            if(search.unisex && item.unisex==false){
+                                return null;
+                            }
+                            if(search.changing_table && item.changing_table==false){
+                                return null;
+                            }
+                            if(search.accessible && item.accessible==false){
+                                return null;
+                            }
+                            // if ((search.unisex==true && item.unisex==true) || (search.changing_table==true && item.changing_table==true) || (search.accessible==true && item.accessible==true)){
                                 // console.log(item)
                                 return(
                                     <>
@@ -81,7 +89,7 @@ const Map = props => {
                                         </Marker>
                                     </>
                                 )
-                            }
+                            //}
                         }
                     })
                 }
