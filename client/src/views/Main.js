@@ -5,7 +5,8 @@ import Map from '../components/Map';
 import SearchBar from '../components/SearchBar';
 
 const Main = () => {
-    const [filteredList, setFilteredList] = useState([])
+    const [filteredList, setFilteredList] = useState([]);
+    const [routeMade, setRouteMade] = useState(false);
     const [search, setSearch] = useState({
         radius: "2",
         changing_table: true,
@@ -52,6 +53,10 @@ const Main = () => {
     };
     const submitHandler = e => {
         e.preventDefault();
+        if(routeMade) {
+            setRouteMade(false)
+            allRoute.remove();
+        }
         axios.get(`https://www.refugerestrooms.org/api/v1/restrooms/by_location?page=1&per_page=50&offset=0&lat=${personLocation.lat}&lng=${personLocation.lng}`)
             .then(response => {
                 // console.log(response.data)
@@ -83,11 +88,11 @@ const Main = () => {
 
     return(
         <>
-            <div className="topMenu">
+            {/* <div className="topMenu">
                 <div className="menuButton">
                     <svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-caret-down-fill" fill="currentColor"></svg>
                 </div>
-            </div>
+            </div> */}
             <SearchBar
                 changeHandler = {changeHandler}
                 submitHandler = {submitHandler}
@@ -103,7 +108,8 @@ const Main = () => {
                 allRoute={allRoute}
                 filteredList={filteredList}
                 setPersonLocation={setPersonLocation}
-
+                routeMade={routeMade}
+                setRouteMade={setRouteMade}
             />
         </>
         

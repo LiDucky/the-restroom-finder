@@ -39,6 +39,7 @@
     flex-direction: column;
 }
 .center {
+    background-color: #292b2c;
     display: flex;
     justify-content: center;
 }

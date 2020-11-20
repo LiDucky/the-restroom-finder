@@ -2,11 +2,10 @@ import React from 'react';
 
 const SearchBar = props => {
     const {search, changeHandler, personLocation, submitHandler} = props;
-    const {latitude, longitude, radius, unisex, changing_table, accessible} = search;
-    const checked = true;
+    const {radius, unisex, changing_table, accessible} = search;
     return (
         <>
-            <button id="hider" className="btn btn-secondary" onClick={() => {
+            <button id="hider" className="btn btn-info" onClick={() => {
                     document.getElementById("searchBar").style.display=="block"?
                         document.getElementById("searchBar").style.display="none":
                         document.getElementById("searchBar").style.display="block"
@@ -33,7 +32,7 @@ const SearchBar = props => {
                     <input className="form-check-input" type="checkbox" id="accessible" name="accessible" value={accessible} onChange={changeHandler} defaultChecked/>
                     <label className="form-check-label" htmlFor="accessible">ADA Accessible</label>
                 </div>
-                <input className="btn btn-primary" type="submit" value="Search"/>
+                <input className="btn btn-primary my-2" type="submit" value="Search"/>
             </form>
         </>
     )
