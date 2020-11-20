@@ -5,7 +5,6 @@ import Map from '../components/Map';
 import SearchBar from '../components/SearchBar';
 
 const Main = () => {
-    const [filteredList, setFilteredList] = useState([]);
     const [routeMade, setRouteMade] = useState(false);
     const [search, setSearch] = useState({
         latitude: "37.871576",

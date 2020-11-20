@@ -10,6 +10,7 @@ const Map = props => {
     const center = [37.871576, -122.273029];
     const [needToGetLocation, setNeedToGetLocation] = useState(true);
     const zoom = 14;
+    console.log(`search:`, search)
 
     function LocationMarker() {
         const [position, setPosition] = useState(null);
@@ -33,24 +34,6 @@ const Map = props => {
 
         return null;
     }
-    const filteredList = [];
-    for (let i=0; i<datalist.length-1; i++){
-        if (datalist[i].distance <+ search.radius){
-            if (search.unisex == true && datalist[i].unisex == true){
-                filteredList.push(datalist[i])
-            }
-            if (search.changing_table == true && datalist[i].changing_table == true){
-                filteredList.push(datalist[i])
-            }
-            if (search.accessible == true && datalist[i].accessible == true){
-                filteredList.push(datalist[i])
-            }
-        }
-    }
-    console.log(`this is the filteredList:`, filteredList)
-
-
-
 
     return(
             <MapContainer
@@ -65,9 +48,9 @@ const Map = props => {
             <Route routeMade={routeMade} allRoute={allRoute}/>
                 {
                     datalist.map((item, i)=>{
-                        // if(item.distance <= search.radius) {
-                        //     if (search.unisex==item.unisex || search.changing_table==item.changing_table || search.accessible==item.accessible){
-
+                        if(item.distance <= search.radius) {
+                            if ((search.unisex==true && item.unisex==true) || (search.changing_table==true && item.changing_table==true) || (search.accessible==true && item.accessible==true)){
+                                // console.log(item)
                                 return(
                                     <>
                                         <Marker key = {i} 
@@ -98,8 +81,8 @@ const Map = props => {
                                         </Marker>
                                     </>
                                 )
-                        //     }
-                        // }
+                            }
+                        }
                     })
                 }
                 <LocationMarker/>
@@ -109,3 +92,5 @@ const Map = props => {
     )
 }
 export default Map;
+
+
