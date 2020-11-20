@@ -7,16 +7,12 @@ import SearchBar from '../components/SearchBar';
 const Main = () => {
     const [routeMade, setRouteMade] = useState(false);
     const [search, setSearch] = useState({
-        latitude: "37.871576",
-        longitude: "-122.273029",
         radius: "2",
         changing_table: true,
         unisex: true,
         accessible: true,
     });
     const [newSearch, setNewSearch] = useState({
-        latitude: "",
-        longitude: "",
         radius: "",
         changing_table: "",
         unisex: "",
@@ -42,11 +38,12 @@ const Main = () => {
             setRouteMade(false)
             allRoute.remove();
         }
-        if (e.target.name === "latitude" || e.target.name === "longitude"){
+        if (e.target.name === "lat" || e.target.name === "lng"){
             setPersonLocation({
                 ...personLocation,
-                [e.target.name]:e.target.value
+                [e.target.name]: e.target.value
             })
+            console.log(e.target.name, e.target.value);
         }
         else if (e.target.name === "unisex" || e.target.name === "changing_table" || e.target.name === "accessible"){
             setSearch({
@@ -70,32 +67,15 @@ const Main = () => {
         axios.get(`https://www.refugerestrooms.org/api/v1/restrooms/by_location?page=1&per_page=50&offset=0&lat=${personLocation.lat}&lng=${personLocation.lng}`)
             .then(response => {
                 setDatalist(response.data);
-                // console.log(`datalist9:`, datalist[9].unisex)
-                // console.log(response.data)
-                // const newlist=[];
-                // for (let i=0; i<datalist.length-1; i++){
-                //     // console.log(datalist[i])
-                //     if (datalist[i].distance <= search.radius && search.unisex===true && datalist[i].unisex===true){
-                //         newlist.push(datalist[i])
-                //     } if (datalist[i].distance <= search.radius && search.changing_table===true && datalist[i].changing_table===true){
-                //         newlist.push(datalist[i])
-                //     } if (datalist[i].distance <= search.radius && search.accessible===true && datalist[i].unisex===true){
-                //         newlist.push(datalist[i])
-                //     }
-                // }
-                // console.log(`newlist:`, newlist)
             })
             .catch(err => console.log(err))
-        // setPersonLocation([search.latitude, search.longitude])
         setNewSearch(search);
-        // setSearch({
-        //     latitude: "",
-        //     longitude: "",
-        //     radius: "",
-        //     unisex: "",
-        //     changing_table: "",
-        //     accessible: "",
-        // });
+        setSearch({
+            radius: "",
+            unisex: "",
+            changing_table: "",
+            accessible: "",
+        });
     };
 
 

@@ -14,10 +14,10 @@ const SearchBar = props => {
                         document.getElementById("hider").innerHTML="Show Search"
             }}>Show Search</button>
             <form id="searchBar" onSubmit={submitHandler}>
-                <label htmlFor="latitude">Latitude: </label>
-                <input className="form-control" type="text" name="latitude" onChange={changeHandler} value={personLocation.lat}/>
-                <label htmlFor="longitude">Longitude: </label>
-                <input className="form-control" type="text" name="longitude" onChange={changeHandler} value={personLocation.lng}/>
+                <label htmlFor="lat">Latitude: </label>
+                <input className="form-control" type="text" name="lat" onChange={changeHandler} value={personLocation.lat}/>
+                <label htmlFor="lng">Longitude: </label>
+                <input className="form-control" type="text" name="lng" onChange={changeHandler} value={personLocation.lng}/>
                 <label htmlFor="radius">Radius: </label>
                 <input className="form-control" type="text" name="radius" onChange={changeHandler} value={radius}/>
                 <div className="form-check form-check-inline">
