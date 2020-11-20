@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 const Route = props => {
     const  map  = useMap();
-    console.log(map);
+    // console.log(map);
     const {personLocation, restroomLocation} = props;
 
     useEffect(() => {
