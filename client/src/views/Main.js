@@ -26,7 +26,7 @@ const Main = () => {
             restroomLocation
         ],
         router: new L.Routing.osrmv1({
-            profile: 'foot' //doesn't seem to be changing time?
+            profile: 'foot'
         })
     })
     const [center, setCenter] = useState([37.871576, -122.273029])
@@ -45,7 +45,6 @@ const Main = () => {
                 console.log(`latitude: ${search.latitude}, longitude: ${search.longitude}`)
                 setDatalist(response.data);
                 setCenter([search.latitude, search.longitude])
-                navigate('/')
             })
             .catch(err => console.log(err))
         setPersonLocation([search.latitude, search.longitude])

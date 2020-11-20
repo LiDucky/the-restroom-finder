@@ -5,25 +5,37 @@ const SearchBar = props => {
     const {latitude, longitude, radius} = search;
 
     return (
-        <form onSubmit={submitHandler}>
-            <label htmlFor="latitude">Latitude: </label>
-            <input type="text" name="latitude" onChange={changeHandler} value={latitude}/>
-            <label htmlFor="longitude">Longitude: </label>
-            <input type="text" name="longitude" onChange={changeHandler} value={longitude}/>
-            <label htmlFor="radius">Radius: </label>
-            <input type="text" name="radius" onChange={changeHandler} value={radius}/>
-            <input type="submit" value="Search"/>
-            <input type="checkbox"/>
-            <label htmlFor="unisex">Gender Neutral</label>
-            <br/>
-            <input type="checkbox"/>
-            <label htmlFor="changing_table">Changing Table</label>
-            <br/>
-            <input type="checkbox"/>
-            <label htmlFor="accessible">ADA Accessible</label>
-            <br/>
-            <input type="submit" value="Search"/>
-        </form>
+        <>
+            <button id="hider" className="btn btn-secondary" onClick={() => {
+                    document.getElementById("searchBar").style.display=="block"?
+                        document.getElementById("searchBar").style.display="none":
+                        document.getElementById("searchBar").style.display="block"
+                    document.getElementById("hider").innerHTML=="Show Search"?
+                        document.getElementById("hider").innerHTML="Hide Search":
+                        document.getElementById("hider").innerHTML="Show Search"
+            }}>Show Search</button>
+            <form id="searchBar" onSubmit={submitHandler}>
+                <label htmlFor="latitude">Latitude: </label>
+                <input className="form-control" type="text" name="latitude" onChange={changeHandler} value={latitude}/>
+                <label htmlFor="longitude">Longitude: </label>
+                <input className="form-control" type="text" name="longitude" onChange={changeHandler} value={longitude}/>
+                <label htmlFor="radius">Radius: </label>
+                <input className="form-control" type="text" name="radius" onChange={changeHandler} value={radius}/>
+                <div className="form-check form-check-inline">
+                    <input className="form-check-input" type="checkbox"/>
+                    <label className="form-check-label" htmlFor="unisex">Gender Neutral</label>
+                </div>
+                <div className="form-check form-check-inline">
+                    <input className="form-check-input" type="checkbox"/>
+                    <label className="form-check-label" htmlFor="changing_table">Changing Table</label>
+                </div>
+                <div className="form-check form-check-inline">
+                    <input className="form-check-input" type="checkbox"/>
+                    <label className="form-check-label" htmlFor="accessible">ADA Accessible</label>
+                </div>
+                <input className="btn btn-primary" type="submit" value="Search"/>
+            </form>
+        </>
     )
 }
 export default SearchBar;
