@@ -26,8 +26,9 @@ function LocationMarker() {
 }
 
 const Map = props => {
-    const {datalist, search} = props;
+    const {datalist, search, setRestroomLocation, allRoute} = props;
     const center = [37.871576, -122.273029];
+    const [routeMade, setRouteMade] = useState(false);
     const zoom = 14;
 
     return(
@@ -40,29 +41,38 @@ const Map = props => {
                     attribution = '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors' 
                     url = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
                 />
-                <Route personLocation={center} restroomLocation={[37.874, -122.26]}/>
-                <Marker position = {[37.871576, -122.273029]}/>
+            <Route routeMade={routeMade} allRoute={allRoute}/>
+
                 {
                     datalist.map((item, i)=>{
-                        if(item.distance <= 2) {// substitude 2 for search.radius
-                            return(
-                                <>
-                                    <Marker key = {i} 
-                                        position = {[item.latitude, item.longitude]} 
-                                    >
-                                        <MarkerPopup 
-                                            name = {item.name} 
-                                            changing_table = {item.changing_table} 
-                                            accessible = {item.accessible} 
-                                            unisex = {item.unisex} 
-                                            street = {item.street}
-                                            city = {item.city}
-                                            state = {item.state}
-                                        />
-                                    </Marker>
-                                </>
-                            )
-                        }
+                        // if(item.distance <= search.radius) {
+                        //     if(search.unisex==true && item.unisex===true || search.changing_table==true && item.changing_table===true || search.accessible==true && item.accessible===true){
+                                return(
+                                    <>
+                                        <Marker key = {i} 
+                                            position = {[item.latitude, item.longitude]}
+                                            eventHandlers={{
+                                                click: () => {
+                                                    setRestroomLocation([item.latitude, item.longitude]);
+                                                    setRouteMade(true)
+                                                    allRoute.remove()
+                                        },
+                                    }}
+                                >
+                                    <MarkerPopup 
+                                        name = {item.name} 
+                                        changing_table = {item.changing_table} 
+                                        accessible = {item.accessible} 
+                                        unisex = {item.unisex} 
+                                        street = {item.street}
+                                        city = {item.city}
+                                        state = {item.state}
+                                    />
+                                </Marker>
+                                    </>
+                                )
+                        //     }
+                        // }
                     })
                 }
                 <LocationMarker/>
