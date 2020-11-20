@@ -8,9 +8,9 @@ const MarkerPopup = props => {
         <Popup>
             <div className='popup-text'>
                 <h4>{name}</h4>
-                { changing_table ? <p>Changing Table: Yes</p> : <p>Changing Table: No</p> }
-                { accessible ? <p>ADA Accessible: Yes</p> : <p>ADA Accessible: No</p> }
-                { unisex ? <p>Gender Neutral: Yes</p> : <p>Gender Neutral: No</p> }
+                { changing_table===true ? <p>Changing Table: Yes</p> : <p>Changing Table: No</p> }
+                { accessible===true ? <p>ADA Accessible: Yes</p> : <p>ADA Accessible: No</p> }
+                { unisex===true ? <p>Gender Neutral: Yes</p> : <p>Gender Neutral: No</p> }
                 <p>{street}</p>
                 <p>{city}, {state}</p>
                 {/* <p onClick={loadDirections}>See Directions</p> */}

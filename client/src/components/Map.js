@@ -25,8 +25,9 @@ const Map = props => {
 
                 {
                     datalist.map((item, i)=>{
-                        // if(item.distance <= search.radius) {
-                        //     if(search.unisex==true && item.unisex===true || search.changing_table==true && item.changing_table===true || search.accessible==true && item.accessible===true){
+                        if(item.distance <= search.radius) {
+                            if (search.unisex==item.unisex || search.changing_table==item.changing_table || search.accessible==item.accessible){
+                            
                                 return(
                                     <>
                                         <Marker key = {i} 
@@ -51,8 +52,8 @@ const Map = props => {
                                 </Marker>
                                     </>
                                 )
-                        //     }
-                        // }
+                            }
+                        }
                     })
                 }
             </MapContainer>

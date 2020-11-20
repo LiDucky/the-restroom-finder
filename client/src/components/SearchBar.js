@@ -4,7 +4,6 @@ const SearchBar = props => {
     const {search, changeHandler, submitHandler} = props;
     const {latitude, longitude, radius, unisex, changing_table, accessible} = search;
 
-    const checked = true;
     return (
         <>
             <button id="hider" className="btn btn-secondary" onClick={() => {
