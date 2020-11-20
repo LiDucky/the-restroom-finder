@@ -5,6 +5,8 @@ import Map from '../components/Map';
 import SearchBar from '../components/SearchBar';
 
 const Main = () => {
+    const [filteredList, setFilteredList] = useState([]);
+    const [routeMade, setRouteMade] = useState(false);
     const [search, setSearch] = useState({
         latitude: "37.871576",
         longitude: "-122.273029",
@@ -59,6 +61,10 @@ const Main = () => {
     };
     const submitHandler = e => {
         e.preventDefault();
+        if(routeMade) {
+            setRouteMade(false)
+            allRoute.remove();
+        }
         axios.get(`https://www.refugerestrooms.org/api/v1/restrooms/by_location?page=1&per_page=50&offset=0&lat=${personLocation.lat}&lng=${personLocation.lng}`)
             .then(response => {
                 console.log(response.data)
@@ -97,11 +103,11 @@ const Main = () => {
 
     return(
         <>
-            <div className="topMenu">
+            {/* <div className="topMenu">
                 <div className="menuButton">
                     <svg width="1em" height="1em" viewBox="0 0 16 16" className="bi bi-caret-down-fill" fill="currentColor"></svg>
                 </div>
-            </div>
+            </div> */}
             <SearchBar
                 changeHandler = {changeHandler}
                 submitHandler = {submitHandler}
@@ -116,7 +122,8 @@ const Main = () => {
                 setRestroomLocation={setRestroomLocation}
                 allRoute={allRoute}
                 setPersonLocation={setPersonLocation}
-
+                routeMade={routeMade}
+                setRouteMade={setRouteMade}
             />
         </>
         
