@@ -7,21 +7,17 @@ import SearchBar from '../components/SearchBar';
 const Main = () => {
     const [filteredList, setFilteredList] = useState([])
     const [search, setSearch] = useState({
-        latitude: "37.871576",
-        longitude: "-122.273029",
         radius: "2",
         changing_table: true,
         unisex: true,
         accessible: true,
     });
     const [newSearch, setNewSearch] = useState({
-        latitude: "",
-        longitude: "",
         radius: ""
     });
     const [datalist, setDatalist] = useState([]);
     const [restroomLocation, setRestroomLocation] = useState([]);
-    const [personLocation, setPersonLocation] = useState(["37.871576", "-122.273029"]);
+    const [personLocation, setPersonLocation] = useState({lat:"37.871576",lng:"-122.273029"});
 
     const allRoute = L.Routing.control({
         waypoints: [
@@ -34,7 +30,13 @@ const Main = () => {
     })
 
     const changeHandler = e => {
-        if (e.target.name === "unisex" || e.target.name === "changing_table" || e.target.name === "accessible"){
+        if (e.target.name === "latitude" || e.target.name === "longitude"){
+            setPersonLocation({
+                ...personLocation,
+                [e.target.name]:e.target.value
+            })
+        }
+        else if (e.target.name === "unisex" || e.target.name === "changing_table" || e.target.name === "accessible"){
             setSearch({
                 ...search,
                 [e.target.name]: e.target.checked
@@ -46,17 +48,15 @@ const Main = () => {
                 
             })
         }
-        console.log(e.target)
         
     };
     const submitHandler = e => {
         e.preventDefault();
-        axios.get(`https://www.refugerestrooms.org/api/v1/restrooms/by_location?page=1&per_page=50&offset=0&lat=${search.latitude}&lng=${search.longitude}`)
+        axios.get(`https://www.refugerestrooms.org/api/v1/restrooms/by_location?page=1&per_page=50&offset=0&lat=${personLocation.lat}&lng=${personLocation.lng}`)
             .then(response => {
                 // console.log(response.data)
-                console.log(`latitude: ${search.latitude}, longitude: ${search.longitude}, radius: ${search.radius}, gender: ${search.unisex}, changing table: ${search.changing_table}, accessible: ${search.accessible}`)
+                console.log(`latitude: ${personLocation.lat}, longitude: ${personLocation.lng}, radius: ${search.radius}, gender: ${search.unisex}, changing table: ${search.changing_table}, accessible: ${search.accessible}`)
                 setDatalist(response.data);
-                console.log(datalist)
                 // const newlist=[];
                 // for (let i=0; i<datalist.length-1; i++){
                 //     if (search.unisex===true && datalist[i].unisex===true){
@@ -70,7 +70,7 @@ const Main = () => {
                 // console.log(`newlist:`, newlist)
             })
             .catch(err => console.log(err))
-        setPersonLocation([search.latitude, search.longitude])
+        // setPersonLocation([search.latitude, search.longitude])
         setNewSearch(search);
         setSearch({
             latitude: "",
@@ -92,6 +92,7 @@ const Main = () => {
                 changeHandler = {changeHandler}
                 submitHandler = {submitHandler}
                 search = {search}
+                personLocation = {personLocation}
 
 
             />
@@ -101,6 +102,7 @@ const Main = () => {
                 setRestroomLocation={setRestroomLocation}
                 allRoute={allRoute}
                 filteredList={filteredList}
+                setPersonLocation={setPersonLocation}
 
             />
         </>
