@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import L from "leaflet";
 import axios from 'axios';
 import Map from '../components/Map';
 import SearchBar from '../components/SearchBar';
@@ -13,9 +14,24 @@ const Main = () => {
         unisex: true,
         accessible: true,
     });
-
+    const [newSearch, setNewSearch] = useState({
+        latitude: "",
+        longitude: "",
+        radius: ""
+    });
     const [datalist, setDatalist] = useState([]);
-    const [center, setCenter] = useState([37.871576, -122.273029])
+    const [restroomLocation, setRestroomLocation] = useState([]);
+    const [personLocation, setPersonLocation] = useState(["37.871576", "-122.273029"]);
+
+    const allRoute = L.Routing.control({
+        waypoints: [
+            personLocation,
+            restroomLocation
+        ],
+        router: new L.Routing.osrmv1({
+            profile: 'foot'
+        })
+    })
 
     const changeHandler = e => {
         if (e.target.name === "unisex" || e.target.name === "changing_table" || e.target.name === "accessible"){
@@ -33,10 +49,6 @@ const Main = () => {
         console.log(e.target)
         
     };
-
-
-
-    
     const submitHandler = e => {
         e.preventDefault();
         axios.get(`https://www.refugerestrooms.org/api/v1/restrooms/by_location?page=1&per_page=50&offset=0&lat=${search.latitude}&lng=${search.longitude}`)
@@ -58,20 +70,14 @@ const Main = () => {
                 // console.log(`newlist:`, newlist)
             })
             .catch(err => console.log(err))
-
-
-
-        // setSearch({
-        //     latitude: "",
-        //     longitude: "",
-        //     radius: "",
-        //     unisex: false,
-        //     changing_table: false,
-        //     accessible: false,
-
-        // });
+        setPersonLocation([search.latitude, search.longitude])
+        setNewSearch(search);
+        setSearch({
+            latitude: "",
+            longitude: "",
+            radius: ""
+        });
     };
-
 
 
 
@@ -91,8 +97,9 @@ const Main = () => {
             />
             <Map
                 datalist={datalist}
-                search={search}
-                center={center}
+                search={newSearch}
+                setRestroomLocation={setRestroomLocation}
+                allRoute={allRoute}
                 filteredList={filteredList}
 
             />
